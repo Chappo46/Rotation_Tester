@@ -61,10 +61,6 @@ struct block
 			this->type = I;
 			break;
 		case J:
-//		blocks.push_back(TBlock(Vec2D(0,0),blockSize,Color::Blue()));
-//		blocks.push_back(TBlock(Vec2D(1,0),blockSize,Color::Blue()));
-//		blocks.push_back(TBlock(Vec2D(2,0),blockSize,Color::Blue()));
-//		blocks.push_back(TBlock(Vec2D(2,1),blockSize,Color::Blue()));
 			points.push_back(point(0,1));
 			points.push_back(point(1,1));
 			points.push_back(point(2,1));
@@ -72,63 +68,70 @@ struct block
 			this->type = J;
 			break;
 		case L:
-			points.push_back(point(1,0));
+			points.push_back(point(0,2));
+			points.push_back(point(0,1));
 			points.push_back(point(1,1));
-			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(2,1));
 			this->type = L;
 			break;
 		case O:
-			points.push_back(point(1,0));
 			points.push_back(point(1,1));
 			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(2,2));
+			points.push_back(point(2,1));
 			this->type = O;
 			break;
 		case S:
-			points.push_back(point(1,0));
-			points.push_back(point(1,1));
+			points.push_back(point(0,2));
 			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(1,1));
+			points.push_back(point(2,1));
 			this->type = S;
 			break;
 		case T:
-			points.push_back(point(1,0));
+			points.push_back(point(0,1));
 			points.push_back(point(1,1));
 			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(2,1));
 			this->type = T;
 			break;
 		case Z:
-			points.push_back(point(1,0));
+			points.push_back(point(0,1));
 			points.push_back(point(1,1));
 			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(2,2));
 			this->type = Z;
 			break;
 		default:
-			points.push_back(point(1,0));
+			points.push_back(point(0,1));
 			points.push_back(point(1,1));
-			points.push_back(point(1,2));
-			points.push_back(point(1,3));
+			points.push_back(point(2,1));
+			points.push_back(point(3,1));
 			this->type = I;
 			break;
 		}
 	}
 
 	BlockType type;
-	BlockDirection direction = NORTH;
+	BlockDirection direction = SOUTH;
 	std::vector<point> points;
-	void rotateLeft()
+
+	/**
+	 * TEST FUNCTION FOR ROTATING DIFFERENT TYPES OF BLOCKS
+	 * LEFT ROTATION IS TRUE BY DEFAULT...
+	 * FOR RIGHT ROTATION FALSE BOOLEAN PARAMETER REQUIRED
+	 */
+	void Rotate(bool isLeft = true)
 	{
+		//I ROTATION
 		if(type == I)
 		{
-			if(direction == NORTH)
+			if(direction == SOUTH)
 			{
 				for(size_t i = 0; i<points.size();i++)
 				{
 					points[i].move(point(2-i,2-i));
-					direction = WEST;
+					direction = EAST;
 				}
 			}
 			else
@@ -136,13 +139,85 @@ struct block
 				for(size_t i = 0; i<points.size();i++)
 				{
 					points[i].move(point((2-i)*-1,(2-i)*-1));
-					direction = NORTH;
+					direction = SOUTH;
 				}
 			}
 		}
+		//J ROTATION
 		else if(type == J)
 		{
-			std::cout<<"J ROTATION NOT IMPLEMENTED"<<std::endl;
+			if((direction == SOUTH && isLeft) || (direction == WEST && !isLeft))
+			{
+				points[0].move(point(1,1));
+				points[2].move(point(-1,-1));
+				points[3].move(point(0,-2));
+				if(isLeft)
+				{
+					direction = EAST;
+				}
+				else
+				{
+					direction = NORTH;
+				}
+			}
+			else if((direction == EAST && isLeft) || (direction == SOUTH&& !isLeft))
+			{
+				points[0].move(point(1,-1));
+				points[2].move(point(-1,1));
+				points[3].move(point(-2,0));
+				if(isLeft)
+				{
+					direction = NORTH;
+				}
+				else
+				{
+					direction = WEST;
+				}
+			}
+			else if((direction == NORTH && isLeft)|| (direction == EAST&& !isLeft))
+			{
+				points[0].move(point(-1,-1));
+				points[2].move(point(1,1));
+				points[3].move(point(0,2));
+				if(isLeft)
+				{
+					direction = WEST;
+				}
+				else
+				{
+					direction = SOUTH;
+				}
+			}
+			else if((direction == WEST && isLeft)|| (direction == NORTH&& !isLeft))
+			{
+				points[0].move(point(-1,1));
+				points[2].move(point(1,-1));
+				points[3].move(point(2,0));
+				if(isLeft)
+				{
+					direction = SOUTH;
+				}
+				else
+				{
+					direction = EAST;
+				}
+			}
+		}
+		else if(type == L)
+		{
+			std::cout<<"L ROTATION NOT IMPLEMENTED"<<std::endl;
+		}
+		else if(type == S)
+		{
+			std::cout<<"S ROTATION NOT IMPLEMENTED"<<std::endl;
+		}
+		else if(type == T)
+		{
+			std::cout<<"T ROTATION NOT IMPLEMENTED"<<std::endl;
+		}
+		else if(type == Z)
+		{
+			std::cout<<"Z ROTATION NOT IMPLEMENTED"<<std::endl;
 		}
 	}
 
@@ -154,11 +229,26 @@ struct block
 			el.print();
 			std::cout<<" ";
 		}
+		switch(direction)
+		{
+		case SOUTH:
+			std::cout<<"Block Direction:SOUTH"<<std::endl;
+			break;
+		case EAST:
+			std::cout<<"Block Direction:EAST"<<std::endl;
+			break;
+		case NORTH:
+			std::cout<<"Block Direction:NORTH"<<std::endl;
+			break;
+		case WEST:
+			std::cout<<"Block Direction:WEST"<<std::endl;
+			break;
+		}
 		std::cout<<std::endl;
 	}
 };
 
-void printblock(block b)
+void DisplayBlock(block b)
 {
 	for(int i = 0; i<4; i++)
 	{
@@ -190,20 +280,67 @@ void printblock(block b)
 }
 
 void TestBlockRotation(block block,char designation) {
+
+	bool right{false};
+
 	std::cout << "******'"<<designation<<"' block **********" << std::endl;
 	std::cout << "'"<<designation<<"' block start:" << std::endl;
-	printblock(block);
+	DisplayBlock(block);
 	block.print();
 	std::cout << std::endl;
 
 	std::cout << "'"<<designation<<"' Block Rotated left once:" << std::endl;
-	block.rotateLeft();
-	printblock(block);
+	block.Rotate();
+	DisplayBlock(block);
 	block.print();
 	std::cout << std::endl;
+
 	std::cout << "'"<<designation<<"' Block Rotated left twice:" << std::endl;
-	block.rotateLeft();
-	printblock(block);
+	block.Rotate();
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated left Three Times:" << std::endl;
+	block.Rotate();
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated left Four Times:" << std::endl;
+	block.Rotate();
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout<<"//////////////////////////RIGHT ROTATION START////////////////////////////////"<<std::endl;
+	std::cout << "******'"<<designation<<"' block **********" << std::endl;
+	std::cout << "'"<<designation<<"' block start:" << std::endl;
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated right once:" << std::endl;
+	block.Rotate(right);
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated right twice:" << std::endl;
+	block.Rotate(right);
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated right Three Times:" << std::endl;
+	block.Rotate(right);
+	DisplayBlock(block);
+	block.print();
+	std::cout << std::endl;
+
+	std::cout << "'"<<designation<<"' Block Rotated right Four Times:" << std::endl;
+	block.Rotate(right);
+	DisplayBlock(block);
 	block.print();
 	std::cout << std::endl;
 }
@@ -214,6 +351,11 @@ int main()
 	std::cout<<std::endl;
 	block IBlock = block(I);
 	block JBlock = block(static_cast<BlockType>(1));
+	block LBlock = block(L);
+	block OBlock = block(O);
+	block SBlock = block(S);
+	block TBlock = block(T);
+	block ZBlock = block(Z);
 
 	TestBlockRotation(JBlock,'J');
 	return 0;
