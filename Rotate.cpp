@@ -203,20 +203,244 @@ struct block
 				}
 			}
 		}
+
+		// L Rotation
 		else if(type == L)
 		{
-			std::cout<<"L ROTATION NOT IMPLEMENTED"<<std::endl;
+			if((direction == SOUTH && isLeft) || (direction == WEST && !isLeft))
+			{
+				points[0].move(point(2,0));
+				points[1].move(point(1,1));
+				points[3].move(point(-1,-1));
+				if(isLeft)
+				{
+					direction = EAST;
+				}
+				else
+				{
+					direction = NORTH;
+				}
+			}
+			else if((direction == EAST && isLeft) || (direction == SOUTH&& !isLeft))
+			{
+				points[0].move(point(0,-2));
+				points[1].move(point(1,-1));
+				points[3].move(point(-1,1));
+				if(isLeft)
+				{
+					direction = NORTH;
+				}
+				else
+				{
+					direction = WEST;
+				}
+			}
+			else if((direction == NORTH && isLeft)|| (direction == EAST&& !isLeft))
+			{
+				points[0].move(point(-2,0));
+				points[1].move(point(-1,-1));
+				points[3].move(point(1,1));
+				if(isLeft)
+				{
+					direction = WEST;
+				}
+				else
+				{
+					direction = SOUTH;
+				}
+			}
+			else if((direction == WEST && isLeft)|| (direction == NORTH&& !isLeft))
+			{
+				points[0].move(point(0,2));
+				points[1].move(point(-1,1));
+				points[3].move(point(1,-1));
+				if(isLeft)
+				{
+					direction = SOUTH;
+				}
+				else
+				{
+					direction = EAST;
+				}
+			}
 		}
+		//S Rotation
 		else if(type == S)
 		{
-			std::cout<<"S ROTATION NOT IMPLEMENTED"<<std::endl;
+			if((direction == SOUTH && isLeft) || (direction == WEST && !isLeft))
+			{
+				points[0].move(point(2,0));
+				points[1].move(point(1,-1));
+				points[3].move(point(-1,-1));
+				if(isLeft)
+				{
+					direction = EAST;
+				}
+				else
+				{
+					direction = NORTH;
+				}
+			}
+			else if((direction == EAST && isLeft) || (direction == SOUTH&& !isLeft))
+			{
+				points[0].move(point(0,-2));
+				points[1].move(point(-1,-1));
+				points[3].move(point(-1,1));
+				if(isLeft)
+				{
+					direction = NORTH;
+				}
+				else
+				{
+					direction = WEST;
+				}
+			}
+			else if((direction == NORTH && isLeft)|| (direction == EAST&& !isLeft))
+			{
+				points[0].move(point(-2,0));
+				points[1].move(point(-1,1));
+				points[3].move(point(1,1));
+				if(isLeft)
+				{
+					direction = WEST;
+				}
+				else
+				{
+					direction = SOUTH;
+				}
+			}
+			else if((direction == WEST && isLeft)|| (direction == NORTH&& !isLeft))
+			{
+				points[0].move(point(0,2));
+				points[1].move(point(1,1));
+				points[3].move(point(1,-1));
+				if(isLeft)
+				{
+					direction = SOUTH;
+				}
+				else
+				{
+					direction = EAST;
+				}
+			}
 		}
 		else if(type == T)
 		{
-			std::cout<<"T ROTATION NOT IMPLEMENTED"<<std::endl;
+			if((direction == SOUTH && isLeft) || (direction == WEST && !isLeft))
+			{
+				points[0].move(point(1,1));
+				points[2].move(point(1,-1));
+				points[3].move(point(-1,-1));
+				if(isLeft)
+				{
+					direction = EAST;
+				}
+				else
+				{
+					direction = NORTH;
+				}
+			}
+			else if((direction == EAST && isLeft) || (direction == SOUTH&& !isLeft))
+			{
+				points[0].move(point(1,-1));
+				points[2].move(point(-1,-1));
+				points[3].move(point(-1,1));
+				if(isLeft)
+				{
+					direction = NORTH;
+				}
+				else
+				{
+					direction = WEST;
+				}
+			}
+			else if((direction == NORTH && isLeft)|| (direction == EAST&& !isLeft))
+			{
+				points[0].move(point(-1,-1));
+				points[2].move(point(-1,1));
+				points[3].move(point(1,1));
+				if(isLeft)
+				{
+					direction = WEST;
+				}
+				else
+				{
+					direction = SOUTH;
+				}
+			}
+			else if((direction == WEST && isLeft)|| (direction == NORTH&& !isLeft))
+			{
+				points[0].move(point(-1,1));
+				points[2].move(point(1,1));
+				points[3].move(point(1,-1));
+				if(isLeft)
+				{
+					direction = SOUTH;
+				}
+				else
+				{
+					direction = EAST;
+				}
+			}
 		}
 		else if(type == Z)
 		{
+			if((direction == SOUTH && isLeft) || (direction == WEST && !isLeft))
+			{
+				points[0].move(point(1,1));
+				points[2].move(point(1,-1));
+				points[3].move(point(0,-2));
+				if(isLeft)
+				{
+					direction = EAST;
+				}
+				else
+				{
+					direction = NORTH;
+				}
+			}
+			else if((direction == EAST && isLeft) || (direction == SOUTH&& !isLeft))
+			{
+				points[0].move(point(1,-1));
+				points[2].move(point(-1,-1));
+				points[3].move(point(-2,0));
+				if(isLeft)
+				{
+					direction = NORTH;
+				}
+				else
+				{
+					direction = WEST;
+				}
+			}
+			else if((direction == NORTH && isLeft)|| (direction == EAST&& !isLeft))
+			{
+				points[0].move(point(-1,-1));
+				points[2].move(point(-1,1));
+				points[3].move(point(0,2));
+				if(isLeft)
+				{
+					direction = WEST;
+				}
+				else
+				{
+					direction = SOUTH;
+				}
+			}
+			else if((direction == WEST && isLeft)|| (direction == NORTH&& !isLeft))
+			{
+				points[0].move(point(-1,1));
+				points[2].move(point(1,1));
+				points[3].move(point(2,0));
+				if(isLeft)
+				{
+					direction = SOUTH;
+				}
+				else
+				{
+					direction = EAST;
+				}
+			}
 			std::cout<<"Z ROTATION NOT IMPLEMENTED"<<std::endl;
 		}
 	}
@@ -357,7 +581,7 @@ int main()
 	block TBlock = block(T);
 	block ZBlock = block(Z);
 
-	TestBlockRotation(JBlock,'J');
+	TestBlockRotation(ZBlock,'Z');
 	return 0;
 }
 
